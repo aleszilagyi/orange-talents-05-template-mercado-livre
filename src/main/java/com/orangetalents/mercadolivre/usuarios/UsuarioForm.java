@@ -1,9 +1,11 @@
-package com.orangetalents.mercadolivre.users;
+package com.orangetalents.mercadolivre.usuarios;
 
 import com.orangetalents.mercadolivre.config.anotacoes.UniqueValue;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 
 public class UsuarioForm {
@@ -11,6 +13,7 @@ public class UsuarioForm {
     @NotBlank
     @UniqueValue(domainClass = Usuario.class, fieldName = "username")
     private String username;
+    @NotBlank
     @Size(min = 6)
     private String password;
 

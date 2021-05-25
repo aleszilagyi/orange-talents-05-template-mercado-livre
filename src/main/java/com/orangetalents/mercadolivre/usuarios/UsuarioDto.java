@@ -1,4 +1,4 @@
-package com.orangetalents.mercadolivre.users;
+package com.orangetalents.mercadolivre.usuarios;
 
 import java.util.UUID;
 

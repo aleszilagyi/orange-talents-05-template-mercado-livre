@@ -1,10 +1,9 @@
-package com.orangetalents.mercadolivre.users;
+package com.orangetalents.mercadolivre.usuarios;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -21,6 +20,10 @@ public class Usuario {
     private String passwordHash;
     @CreationTimestamp
     private LocalDateTime momentoCriacao;
+
+    @Deprecated
+    public Usuario() {
+    }
 
     public Usuario(String username, String passwordHash) {
         this.username = username;

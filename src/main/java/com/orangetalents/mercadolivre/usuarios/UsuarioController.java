@@ -1,4 +1,4 @@
-package com.orangetalents.mercadolivre.users;
+package com.orangetalents.mercadolivre.usuarios;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
