@@ -7,9 +7,7 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 @SpringBootApplication
 @EnableSpringDataWebSupport
 public class MercadoLivreApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(MercadoLivreApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(MercadoLivreApplication.class, args);
+    }
 }

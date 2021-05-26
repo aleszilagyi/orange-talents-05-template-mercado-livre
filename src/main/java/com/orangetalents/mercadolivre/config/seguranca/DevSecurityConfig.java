@@ -16,7 +16,7 @@ public class DevSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("*/**").permitAll()
                 .and().csrf()
-                .disable();
-        http.headers().frameOptions().disable();
+                .disable()
+                .headers().frameOptions().disable();
     }
 }
