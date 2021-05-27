@@ -27,13 +27,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (possibleToken.isPresent()) {
             String token = possibleToken.get();
             if (token.startsWith("Bearer ")) {
-                token = token.substring(7, token.length());
+                String tokenWithoutBearer = token.substring(7, token.length());
+                authenticateClient(tokenWithoutBearer);
             }
             if (tokenManager.isValid(token)) {
                 authenticateClient(token);
             }
         }
-
         filterChain.doFilter(request, response);
     }
 
