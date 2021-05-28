@@ -26,12 +26,8 @@ public class FormCategoria {
         return categoriaMaeId;
     }
 
-    public Categoria converter(CategoriaRepository repository) {
-        Optional<Long> talvezCategoriaMaeId = Optional.ofNullable(categoriaMaeId);
-        if (talvezCategoriaMaeId.isPresent()) {
-            Categoria categoria = repository.findById(categoriaMaeId).get();
-            return new Categoria(nome, categoria);
-        }
-        return new Categoria(nome, null);
+    public Categoria converter(Categoria categoria) {
+
+        return new Categoria(nome, categoria);
     }
 }

@@ -14,11 +14,11 @@ import java.util.Optional;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private TokenManager tokenManager;
-    private UserService userService;
+    private DetalhesUsuario detalhesUsuario;
 
-    public JwtAuthenticationFilter(TokenManager tokenManager, UserService userService) {
+    public JwtAuthenticationFilter(TokenManager tokenManager, DetalhesUsuario detalhesUsuario) {
         this.tokenManager = tokenManager;
-        this.userService = userService;
+        this.detalhesUsuario = detalhesUsuario;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private void authenticateClient(String token) {
         String username = tokenManager.getUserName(token);
-        UserDetails userDetails = userService.loadUserByUsername(username);
+        UserDetails userDetails = detalhesUsuario.loadUserByUsername(username);
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 

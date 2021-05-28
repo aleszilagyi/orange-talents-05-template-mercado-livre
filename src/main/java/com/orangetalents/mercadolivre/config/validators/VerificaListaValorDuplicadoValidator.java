@@ -15,9 +15,8 @@ public class VerificaListaValorDuplicadoValidator implements ConstraintValidator
     public boolean isValid(List<FormCaracteristicasRequest> list, ConstraintValidatorContext constraintValidatorContext) {
         Set<String> set = new HashSet<>();
         for (FormCaracteristicasRequest formCaracteristicasRequest : list) {
-            set.add(formCaracteristicasRequest.getNome());
+            if (!set.add(formCaracteristicasRequest.getNome())) return false;
         }
-        if (set.size() < 3 && set.size() < list.size()) return false;
         return true;
     }
 }

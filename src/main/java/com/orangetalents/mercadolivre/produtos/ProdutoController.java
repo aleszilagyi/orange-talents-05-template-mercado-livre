@@ -1,18 +1,22 @@
 package com.orangetalents.mercadolivre.produtos;
 
+import com.orangetalents.mercadolivre.categorias.Categoria;
 import com.orangetalents.mercadolivre.categorias.CategoriaRepository;
+import com.orangetalents.mercadolivre.config.seguranca.UsuarioLogadoDetails;
+import com.orangetalents.mercadolivre.usuarios.Usuario;
 import com.orangetalents.mercadolivre.usuarios.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/produtos")
@@ -23,14 +27,37 @@ public class ProdutoController {
     private ProdutosRepository produtosRepository;
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private FakeUploadImagens fakeUploadImagens;
 
     @PostMapping
     @Transactional
     public ResponseEntity<ProdutoDto> cadastrar(@RequestBody @Valid FormProdutoRequest formProdutoRequest, @AuthenticationPrincipal UserDetails usuarioLogado) {
-        formProdutoRequest.setUsername(usuarioLogado.getUsername());
-        Produto produto = formProdutoRequest.converter(categoriaRepository, usuarioRepository);
+        Categoria categoria = categoriaRepository.getById(formProdutoRequest.getIdCategoria());
+        Usuario usuario = usuarioRepository.findByUsername(usuarioLogado.getUsername()).get();
+        Produto produto = formProdutoRequest.converter(categoria, usuario);
         produtosRepository.save(produto);
 
         return ResponseEntity.ok(new ProdutoDto(produto));
+    }
+
+    @PostMapping(value = "/{id}/imagens")
+    @Transactional
+    public ResponseEntity<ImagemProdutoDto> uploadImagem(@PathVariable("id") Long idProduto, @Valid NovaImagemRequest request, @AuthenticationPrincipal UsuarioLogadoDetails usuarioLogado) {
+        Usuario usuario = usuarioRepository.findByUsername(usuarioLogado.getUsername()).get();
+        Optional<Produto> talvezProduto = produtosRepository.findById(idProduto);
+        if (talvezProduto.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        if (talvezProduto.get().getUsuario().getId() != usuario.getId()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        Produto produto = talvezProduto.get();
+        Set<String> listaUrlImagens = request.getImagens().stream().map(file ->
+                fakeUploadImagens.criaUrlImagem(file)).collect(Collectors.toSet());
+
+        produto.setImagensProduto(listaUrlImagens);
+        return ResponseEntity.ok(new ImagemProdutoDto(produto));
     }
 }

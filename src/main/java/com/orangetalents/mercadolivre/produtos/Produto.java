@@ -44,6 +44,9 @@ public class Produto {
     private Set<@NotNull Caracteristica> caracteristicas = new HashSet<>();
     @CreationTimestamp
     private LocalDateTime momentoCriacao;
+    @NotNull
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Set<ImagemProduto> imagensProduto = new HashSet<>();
 
     @Deprecated
     public Produto() {
@@ -93,6 +96,10 @@ public class Produto {
 
     public LocalDateTime getMomentoCriacao() {
         return momentoCriacao;
+    }
+
+    public void setImagensProduto(Set<String> imagensProduto) {
+        this.imagensProduto = imagensProduto.stream().map(url -> new ImagemProduto(this, url)).collect(Collectors.toSet());
     }
 
     @Override

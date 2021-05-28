@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/categorias")
@@ -20,7 +21,12 @@ public class CategoriaController {
     @PostMapping
     @Transactional
     public ResponseEntity<CategoriaDto> cadastrar(@RequestBody @Valid FormCategoria request) {
-        Categoria categoria = request.converter(categoriaRepository);
+        Optional<Long> talvezCategoriaMaeId = Optional.ofNullable(request.getCategoriaMaeId());
+        Categoria categoriaMae = null;
+        if (talvezCategoriaMaeId.isPresent()) {
+            categoriaMae = categoriaRepository.findById(talvezCategoriaMaeId.get()).get();
+        }
+        Categoria categoria = request.converter(categoriaMae);
         categoriaRepository.save(categoria);
 
         return ResponseEntity.ok(new CategoriaDto(categoria));

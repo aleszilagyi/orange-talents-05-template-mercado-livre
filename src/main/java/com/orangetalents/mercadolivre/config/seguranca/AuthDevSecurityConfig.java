@@ -20,7 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Profile("authdev")
 public class AuthDevSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private UserService userService;
+    private DetalhesUsuario detalhesUsuario;
     @Autowired
     private TokenManager tokenManager;
 
@@ -39,14 +39,14 @@ public class AuthDevSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().cors()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().addFilterBefore(new JwtAuthenticationFilter(tokenManager, userService), UsernamePasswordAuthenticationFilter.class)
+                .and().addFilterBefore(new JwtAuthenticationFilter(tokenManager, detalhesUsuario), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().authenticationEntryPoint(new JwtAuthenticationEntryPoint() {
         });
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(detalhesUsuario).passwordEncoder(new BCryptPasswordEncoder());
     }
 
     //Configuracoes de recursos estaticos(js, css, imagens, etc.)

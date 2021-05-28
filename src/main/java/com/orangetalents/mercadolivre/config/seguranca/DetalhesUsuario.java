@@ -1,19 +1,18 @@
 package com.orangetalents.mercadolivre.config.seguranca;
 
+import com.orangetalents.mercadolivre.config.seguranca.UsuarioLogadoDetails;
 import com.orangetalents.mercadolivre.usuarios.Usuario;
 import com.orangetalents.mercadolivre.usuarios.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Service
-public class UserService implements UserDetailsService {
-    @Autowired
-    private UserService userService;
+@Component
+public class DetalhesUsuario implements UserDetailsService {
     @Autowired
     private UsuarioRepository repository;
 

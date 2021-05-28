@@ -25,9 +25,9 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String username, String passwordHash) {
+    public Usuario(String username, String password) {
         this.username = username;
-        this.passwordHash = passwordHash;
+        this.passwordHash = password;
     }
 
     public UUID getId() {
