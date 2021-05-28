@@ -1,4 +1,4 @@
-package com.orangetalents.mercadolivre.produtos;
+package com.orangetalents.mercadolivre.produtos.caracteristicas;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
@@ -22,8 +22,8 @@ public class FormCaracteristicasRequest {
         return descricao;
     }
 
-    public Caracteristica converter(Produto produto) {
-        return new Caracteristica(nome, descricao, produto);
+    public Caracteristica converter() {
+        return new Caracteristica(nome, descricao);
     }
 
     @Override

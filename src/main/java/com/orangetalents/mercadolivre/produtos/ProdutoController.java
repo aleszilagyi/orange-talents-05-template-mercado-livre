@@ -3,6 +3,9 @@ package com.orangetalents.mercadolivre.produtos;
 import com.orangetalents.mercadolivre.categorias.Categoria;
 import com.orangetalents.mercadolivre.categorias.CategoriaRepository;
 import com.orangetalents.mercadolivre.config.seguranca.UsuarioLogadoDetails;
+import com.orangetalents.mercadolivre.produtos.imagens.FakeUploadImagens;
+import com.orangetalents.mercadolivre.produtos.imagens.ImagemProduto;
+import com.orangetalents.mercadolivre.produtos.imagens.NovaImagemRequest;
 import com.orangetalents.mercadolivre.usuarios.Usuario;
 import com.orangetalents.mercadolivre.usuarios.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +44,9 @@ public class ProdutoController {
         return ResponseEntity.ok(new ProdutoDto(produto));
     }
 
-    @PostMapping(value = "/{id}/imagens")
+    @PostMapping("/{id}/imagens")
     @Transactional
-    public ResponseEntity<ImagemProdutoDto> uploadImagem(@PathVariable("id") Long idProduto, @Valid NovaImagemRequest request, @AuthenticationPrincipal UsuarioLogadoDetails usuarioLogado) {
+    public ResponseEntity<ProdutoDto> uploadImagem(@PathVariable("id") Long idProduto, @Valid NovaImagemRequest request, @AuthenticationPrincipal UsuarioLogadoDetails usuarioLogado) {
         Usuario usuario = usuarioRepository.findByUsername(usuarioLogado.getUsername()).get();
         Optional<Produto> talvezProduto = produtosRepository.findById(idProduto);
         if (talvezProduto.isEmpty()) {
@@ -57,7 +60,9 @@ public class ProdutoController {
         Set<String> listaUrlImagens = request.getImagens().stream().map(file ->
                 fakeUploadImagens.criaUrlImagem(file)).collect(Collectors.toSet());
 
-        produto.setImagensProduto(listaUrlImagens);
-        return ResponseEntity.ok(new ImagemProdutoDto(produto));
+        Set<ImagemProduto> listaImagens = listaUrlImagens.stream().map(ImagemProduto::new).collect(Collectors.toSet());
+
+        produto.setImagensProduto(listaImagens);
+        return ResponseEntity.ok(new ProdutoDto(produto));
     }
 }

@@ -1,31 +1,23 @@
-package com.orangetalents.mercadolivre.produtos;
+package com.orangetalents.mercadolivre.produtos.caracteristicas;
 
-import javax.persistence.*;
+import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
-@Entity
+@Embeddable
 public class Caracteristica {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @NotBlank
     private String nome;
     @NotBlank
     private String descricao;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @NotNull
-    private Produto produto;
 
     @Deprecated
     public Caracteristica() {
     }
 
-    public Caracteristica(String nome, String descricao, Produto produto) {
+    public Caracteristica(String nome, String descricao) {
         this.nome = nome;
         this.descricao = descricao;
-        this.produto = produto;
     }
 
     public String getNome() {
@@ -36,9 +28,6 @@ public class Caracteristica {
         return descricao;
     }
 
-    public Produto getProduto() {
-        return produto;
-    }
 
     @Override
     public boolean equals(Object o) {

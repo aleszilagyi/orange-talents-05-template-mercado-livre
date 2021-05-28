@@ -1,6 +1,8 @@
 package com.orangetalents.mercadolivre.produtos;
 
 import com.orangetalents.mercadolivre.categorias.CategoriaDto;
+import com.orangetalents.mercadolivre.produtos.caracteristicas.CaracteristicaDto;
+import com.orangetalents.mercadolivre.produtos.imagens.ImagemProdutoDto;
 import com.orangetalents.mercadolivre.usuarios.UsuarioDto;
 
 import java.math.BigDecimal;
@@ -16,6 +18,7 @@ public class ProdutoDto {
     private String descricao;
     private CategoriaDto categoria;
     private List<CaracteristicaDto> caracteristicas;
+    private List<ImagemProdutoDto> imagensProdutoDtos;
 
     public ProdutoDto(Produto produto) {
         this.id = produto.getId();
@@ -26,6 +29,7 @@ public class ProdutoDto {
         this.descricao = produto.getDescricao();
         this.categoria = new CategoriaDto(produto.getCategoria());
         this.caracteristicas = produto.getCaracteristicas().stream().map(CaracteristicaDto::new).collect(Collectors.toList());
+        this.imagensProdutoDtos = produto.getImagensProduto().stream().map(ImagemProdutoDto::new).collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -58,5 +62,9 @@ public class ProdutoDto {
 
     public List<CaracteristicaDto> getCaracteristicas() {
         return caracteristicas;
+    }
+
+    public List<ImagemProdutoDto> getImagensProdutoDtos() {
+        return imagensProdutoDtos;
     }
 }

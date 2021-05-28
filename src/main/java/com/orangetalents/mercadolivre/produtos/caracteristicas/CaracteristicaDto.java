@@ -1,4 +1,4 @@
-package com.orangetalents.mercadolivre.produtos;
+package com.orangetalents.mercadolivre.produtos.caracteristicas;
 
 public class CaracteristicaDto {
     private String nome;

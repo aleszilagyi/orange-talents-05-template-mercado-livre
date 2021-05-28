@@ -1,7 +1,7 @@
 package com.orangetalents.mercadolivre.config.validators;
 
 import com.orangetalents.mercadolivre.config.anotacoes.VerificaListaValorDuplicado;
-import com.orangetalents.mercadolivre.produtos.FormCaracteristicasRequest;
+import com.orangetalents.mercadolivre.produtos.caracteristicas.FormCaracteristicasRequest;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

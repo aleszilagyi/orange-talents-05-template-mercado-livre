@@ -1,4 +1,4 @@
-package com.orangetalents.mercadolivre.produtos;
+package com.orangetalents.mercadolivre.produtos.imagens;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
