@@ -1,27 +1,29 @@
 package com.orangetalents.mercadolivre.produtos.opinioes;
 
+import java.time.LocalDateTime;
+
 public class OpiniaoDto {
     private Long id;
-    private int nota;
+    private Integer nota;
     private String titulo;
     private String descricao;
-    private Long produtoId;
     private String usernameOpiniao;
+    private LocalDateTime momentoCriacao;
 
     public OpiniaoDto(Opiniao opiniao) {
         this.id = opiniao.getId();
         this.nota = opiniao.getNota();
         this.titulo = opiniao.getTitulo();
         this.descricao = opiniao.getDescricao();
-        this.produtoId = opiniao.getProduto().getId();
         this.usernameOpiniao = opiniao.getUsuarioOpiniao().getUsername();
+        this.momentoCriacao = opiniao.getMomentoCriacao();
     }
 
     public Long getId() {
         return id;
     }
 
-    public int getNota() {
+    public Integer getNota() {
         return nota;
     }
 
@@ -33,11 +35,11 @@ public class OpiniaoDto {
         return descricao;
     }
 
-    public Long getProdutoId() {
-        return produtoId;
-    }
-
     public String getUsernameOpiniao() {
         return usernameOpiniao;
+    }
+
+    public LocalDateTime getMomentoCriacao() {
+        return momentoCriacao;
     }
 }

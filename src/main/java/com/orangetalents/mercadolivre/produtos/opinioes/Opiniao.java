@@ -2,19 +2,21 @@ package com.orangetalents.mercadolivre.produtos.opinioes;
 
 import com.orangetalents.mercadolivre.produtos.Produto;
 import com.orangetalents.mercadolivre.usuarios.Usuario;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.time.LocalDateTime;
 
 @Entity
-public class Opiniao {
+public class Opiniao implements Comparable<Opiniao> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
     @Min(1)
     @Max(5)
-    private int nota;
+    private Integer nota;
     @NotBlank
     @Size(max = 100)
     private String titulo;
@@ -27,6 +29,8 @@ public class Opiniao {
     @ManyToOne
     @NotNull
     private Usuario usuarioOpiniao;
+    @CreationTimestamp
+    private LocalDateTime momentoCriacao;
 
     @Deprecated
     public Opiniao() {
@@ -62,5 +66,14 @@ public class Opiniao {
 
     public Usuario getUsuarioOpiniao() {
         return usuarioOpiniao;
+    }
+
+    public LocalDateTime getMomentoCriacao() {
+        return momentoCriacao;
+    }
+
+    @Override
+    public int compareTo(Opiniao o) {
+        return this.nota.compareTo(o.nota);
     }
 }

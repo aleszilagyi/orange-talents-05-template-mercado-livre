@@ -9,7 +9,7 @@ public class FormOpiniaoRequest {
     @NotNull
     @Min(1)
     @Max(5)
-    private int nota;
+    private Integer nota;
     @NotBlank
     @Size(max = 100)
     private String titulo;

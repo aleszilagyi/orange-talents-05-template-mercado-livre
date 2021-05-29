@@ -3,22 +3,27 @@ package com.orangetalents.mercadolivre.produtos;
 import com.orangetalents.mercadolivre.categorias.CategoriaDto;
 import com.orangetalents.mercadolivre.produtos.caracteristicas.CaracteristicaDto;
 import com.orangetalents.mercadolivre.produtos.imagens.ImagemProdutoDto;
+import com.orangetalents.mercadolivre.produtos.opinioes.OpiniaoDto;
+import com.orangetalents.mercadolivre.produtos.perguntas.PerguntaDto;
 import com.orangetalents.mercadolivre.usuarios.UsuarioDto;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProdutoDto {
     private Long id;
     private String nome;
     private UsuarioDto usuario;
     private BigDecimal valor;
-    private int quantidade;
+    private Integer quantidade;
     private String descricao;
     private CategoriaDto categoria;
     private List<CaracteristicaDto> caracteristicas;
     private List<ImagemProdutoDto> imagensProdutoDtos;
+    private List<PerguntaDto> listaPerguntas;
+    private List<OpiniaoDto> listaOpinioes;
+    private Integer quantidadeNotas;
+    private double mediaNotas;
 
     public ProdutoDto(Produto produto) {
         this.id = produto.getId();
@@ -28,8 +33,12 @@ public class ProdutoDto {
         this.quantidade = produto.getQuantidade();
         this.descricao = produto.getDescricao();
         this.categoria = new CategoriaDto(produto.getCategoria());
-        this.caracteristicas = produto.getCaracteristicas().stream().map(CaracteristicaDto::new).collect(Collectors.toList());
-        this.imagensProdutoDtos = produto.getImagensProduto().stream().map(ImagemProdutoDto::new).collect(Collectors.toList());
+        this.caracteristicas = produto.mapperParaList(produto.getCaracteristicas(), CaracteristicaDto::new);
+        this.imagensProdutoDtos = produto.mapperParaList(produto.getImagensProduto(), ImagemProdutoDto::new);
+        this.listaPerguntas = produto.mapperParaList(produto.getPerguntasAoProduto(), PerguntaDto::new);
+        this.listaOpinioes = produto.mapperParaList(produto.getOpinioesDoProduto(), OpiniaoDto::new);
+        this.quantidadeNotas = produto.getOpinioesDoProduto().size();
+        this.mediaNotas = produto.retornaMediaNotas(produto.getOpinioesDoProduto());
     }
 
     public Long getId() {
@@ -48,7 +57,7 @@ public class ProdutoDto {
         return valor;
     }
 
-    public int getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
@@ -67,4 +76,21 @@ public class ProdutoDto {
     public List<ImagemProdutoDto> getImagensProdutoDtos() {
         return imagensProdutoDtos;
     }
+
+    public List<PerguntaDto> getListaPerguntas() {
+        return listaPerguntas;
+    }
+
+    public List<OpiniaoDto> getListaOpinioes() {
+        return listaOpinioes;
+    }
+
+    public Integer getQuantidadeNotas() {
+        return quantidadeNotas;
+    }
+
+    public double getMediaNotas() {
+        return mediaNotas;
+    }
+
 }

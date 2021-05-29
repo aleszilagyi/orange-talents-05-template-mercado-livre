@@ -3,6 +3,8 @@ package com.orangetalents.mercadolivre.produtos;
 import com.orangetalents.mercadolivre.categorias.Categoria;
 import com.orangetalents.mercadolivre.produtos.caracteristicas.Caracteristica;
 import com.orangetalents.mercadolivre.produtos.imagens.ImagemProduto;
+import com.orangetalents.mercadolivre.produtos.opinioes.Opiniao;
+import com.orangetalents.mercadolivre.produtos.perguntas.Pergunta;
 import com.orangetalents.mercadolivre.usuarios.Usuario;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -13,9 +15,9 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Entity
 public class Produto {
@@ -32,7 +34,7 @@ public class Produto {
     private BigDecimal valor;
     @NotNull
     @Positive
-    private int quantidade;
+    private Integer quantidade;
     @NotBlank
     @Size(max = 1000)
     private String descricao;
@@ -47,6 +49,14 @@ public class Produto {
     @NotNull
     @ElementCollection
     private Set<ImagemProduto> imagensProduto = new HashSet<>();
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.REFRESH)
+    @ElementCollection
+    @OrderBy("momentoCriacao desc")
+    private SortedSet<Pergunta> perguntasAoProduto = new TreeSet<>();
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.REFRESH)
+    @ElementCollection
+    @OrderBy("nota asc")
+    private SortedSet<Opiniao> opinioesDoProduto = new TreeSet<>();
 
     @Deprecated
     public Produto() {
@@ -98,12 +108,28 @@ public class Produto {
         return imagensProduto;
     }
 
+    public SortedSet<Pergunta> getPerguntasAoProduto() {
+        return perguntasAoProduto;
+    }
+
+    public SortedSet<Opiniao> getOpinioesDoProduto() {
+        return opinioesDoProduto;
+    }
+
     public LocalDateTime getMomentoCriacao() {
         return momentoCriacao;
     }
 
     public void setImagensProduto(Set<ImagemProduto> imagensProduto) {
-        this.imagensProduto = imagensProduto;
+        this.imagensProduto.addAll(imagensProduto);
+    }
+
+    public <T, D> List<T> mapperParaList(Collection<D> originalCollectionObject, Function<D, T> funcaoMap) {
+        return originalCollectionObject.stream().map(funcaoMap).collect(Collectors.toList());
+    }
+
+    public double retornaMediaNotas(Collection<Opiniao> lista) {
+        return lista.stream().mapToDouble(Opiniao::getNota).average().orElse(0);
     }
 
     @Override

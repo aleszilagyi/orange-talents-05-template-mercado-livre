@@ -3,6 +3,7 @@ package com.orangetalents.mercadolivre.produtos.perguntas;
 import com.orangetalents.mercadolivre.produtos.Produto;
 import com.orangetalents.mercadolivre.usuarios.Usuario;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,7 +12,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
-public class Pergunta {
+public class Pergunta implements Comparable<Pergunta> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,6 +27,8 @@ public class Pergunta {
     private Produto produto;
     @CreationTimestamp
     private LocalDateTime momentoCriacao;
+    @UpdateTimestamp
+    private LocalDateTime momentoAtualizacao;
 
     @Deprecated
     public Pergunta() {
@@ -55,5 +58,11 @@ public class Pergunta {
 
     public LocalDateTime getMomentoCriacao() {
         return momentoCriacao;
+    }
+
+
+    @Override
+    public int compareTo(Pergunta o) {
+        return this.momentoAtualizacao.compareTo(o.momentoAtualizacao);
     }
 }

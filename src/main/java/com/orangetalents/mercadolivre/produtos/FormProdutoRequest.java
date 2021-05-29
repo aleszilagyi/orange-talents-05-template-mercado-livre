@@ -24,7 +24,7 @@ public class FormProdutoRequest {
     private BigDecimal valor;
     @NotNull
     @Positive
-    private int quantidade;
+    private Integer quantidade;
     @NotBlank
     @Size(max = 1000)
     private String descricao;
@@ -36,7 +36,7 @@ public class FormProdutoRequest {
     @VerificaListaValorDuplicado
     private List<FormCaracteristicasRequest> listaCaracteristicas;
 
-    public FormProdutoRequest(String nome, BigDecimal valor, int quantidade, String descricao, Long idCategoria, List<FormCaracteristicasRequest> listaCaracteristicas) {
+    public FormProdutoRequest(String nome, BigDecimal valor, Integer quantidade, String descricao, Long idCategoria, List<FormCaracteristicasRequest> listaCaracteristicas) {
         this.nome = nome;
         this.valor = valor;
         this.quantidade = quantidade;
@@ -53,7 +53,7 @@ public class FormProdutoRequest {
         return valor;
     }
 
-    public int getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
