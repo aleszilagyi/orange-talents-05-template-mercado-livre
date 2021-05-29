@@ -1,7 +1,6 @@
-package com.orangetalents.mercadolivre.config.anotacoes;
+package com.orangetalents.mercadolivre.compartilhado.anotacoes;
 
-import com.orangetalents.mercadolivre.config.validators.VerificaDestinatarioEmailValidator;
-import com.orangetalents.mercadolivre.config.validators.VerificaListaValorDuplicadoValidator;
+import com.orangetalents.mercadolivre.compartilhado.validators.VerificaDestinatarioEmailValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

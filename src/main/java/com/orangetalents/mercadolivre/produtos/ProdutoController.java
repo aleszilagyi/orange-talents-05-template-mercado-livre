@@ -26,7 +26,6 @@ public class ProdutoController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-
     @PostMapping
     @Transactional
     public ResponseEntity<ProdutoDto> cadastrar(@RequestBody @Valid FormProdutoRequest formProdutoRequest, @AuthenticationPrincipal UserDetails usuarioLogado) {

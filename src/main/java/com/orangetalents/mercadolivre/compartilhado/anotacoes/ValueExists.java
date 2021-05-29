@@ -1,16 +1,16 @@
-package com.orangetalents.mercadolivre.config.anotacoes;
+package com.orangetalents.mercadolivre.compartilhado.anotacoes;
 
-import com.orangetalents.mercadolivre.config.validators.NullOrValueExistsValidator;
+import com.orangetalents.mercadolivre.compartilhado.validators.ValueExistsValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
-@Constraint(validatedBy = {NullOrValueExistsValidator.class})
-@Target(value = {ElementType.FIELD, ElementType.TYPE_USE})
+@Constraint(validatedBy = {ValueExistsValidator.class})
+@Target(value = {ElementType.FIELD, ElementType.TYPE_USE, ElementType.TYPE_PARAMETER, ElementType.PARAMETER, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface NullOrValueExists {
+public @interface ValueExists {
     String message() default "{fieldName} fornecido não está cadastrado";
 
     Class<?>[] groups() default {};

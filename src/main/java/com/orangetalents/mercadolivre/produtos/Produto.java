@@ -9,10 +9,8 @@ import com.orangetalents.mercadolivre.usuarios.Usuario;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -33,8 +31,8 @@ public class Produto {
     @Positive
     private BigDecimal valor;
     @NotNull
-    @Positive
-    private Integer quantidade;
+    @Min(0)
+    private Integer estoque;
     @NotBlank
     @Size(max = 1000)
     private String descricao;
@@ -62,11 +60,11 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(String nome, Usuario usuario, BigDecimal valor, int quantidade, String descricao, Categoria categoria, Set<@NotNull Caracteristica> listaCaracteristicas) {
+    public Produto(String nome, Usuario usuario, BigDecimal valor, int estoque, String descricao, Categoria categoria, Set<@NotNull Caracteristica> listaCaracteristicas) {
         this.nome = nome;
         this.usuario = usuario;
         this.valor = valor;
-        this.quantidade = quantidade;
+        this.estoque = estoque;
         this.descricao = descricao;
         this.categoria = categoria;
         this.caracteristicas = listaCaracteristicas;
@@ -92,8 +90,8 @@ public class Produto {
         return valor;
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public int getEstoque() {
+        return estoque;
     }
 
     public String getDescricao() {
@@ -130,6 +128,13 @@ public class Produto {
 
     public double retornaMediaNotas(Collection<Opiniao> lista) {
         return lista.stream().mapToDouble(Opiniao::getNota).average().orElse(0);
+    }
+
+    public boolean abateQuantidade(@Positive Integer quantidadeComprada) {
+        if (estoque >= quantidadeComprada) {
+            this.estoque -= quantidadeComprada;
+            return true;
+        } else return false;
     }
 
     @Override

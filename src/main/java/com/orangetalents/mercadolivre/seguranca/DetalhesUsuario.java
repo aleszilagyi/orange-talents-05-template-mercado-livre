@@ -1,6 +1,5 @@
-package com.orangetalents.mercadolivre.config.seguranca;
+package com.orangetalents.mercadolivre.seguranca;
 
-import com.orangetalents.mercadolivre.config.seguranca.UsuarioLogadoDetails;
 import com.orangetalents.mercadolivre.usuarios.Usuario;
 import com.orangetalents.mercadolivre.usuarios.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;

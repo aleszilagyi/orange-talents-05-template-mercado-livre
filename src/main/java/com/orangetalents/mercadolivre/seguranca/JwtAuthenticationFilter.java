@@ -1,4 +1,4 @@
-package com.orangetalents.mercadolivre.config.seguranca;
+package com.orangetalents.mercadolivre.seguranca;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

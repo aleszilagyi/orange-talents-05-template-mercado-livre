@@ -30,7 +30,7 @@ public class ProdutoDto {
         this.nome = produto.getNome();
         this.usuario = new UsuarioDto(produto.getUsuario());
         this.valor = produto.getValor();
-        this.quantidade = produto.getQuantidade();
+        this.quantidade = produto.getEstoque();
         this.descricao = produto.getDescricao();
         this.categoria = new CategoriaDto(produto.getCategoria());
         this.caracteristicas = produto.mapperParaList(produto.getCaracteristicas(), CaracteristicaDto::new);

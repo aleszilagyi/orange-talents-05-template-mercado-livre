@@ -1,6 +1,6 @@
-package com.orangetalents.mercadolivre.config.validators;
+package com.orangetalents.mercadolivre.compartilhado.validators;
 
-import com.orangetalents.mercadolivre.config.anotacoes.NullOrValueExists;
+import com.orangetalents.mercadolivre.compartilhado.anotacoes.NullOrValueExists;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;

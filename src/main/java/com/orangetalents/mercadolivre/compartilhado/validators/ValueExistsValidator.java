@@ -1,6 +1,6 @@
-package com.orangetalents.mercadolivre.config.validators;
+package com.orangetalents.mercadolivre.compartilhado.validators;
 
-import com.orangetalents.mercadolivre.config.anotacoes.UniqueValue;
+import com.orangetalents.mercadolivre.compartilhado.anotacoes.ValueExists;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
@@ -10,15 +10,14 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
-public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Object> {
-    //validação já existente
+public class ValueExistsValidator implements ConstraintValidator<ValueExists, Object> {
     private String domainAttribute;
     private Class<?> aClass;
     @PersistenceContext
     private EntityManager manager;
 
     @Override
-    public void initialize(UniqueValue params) {
+    public void initialize(ValueExists params) {
         domainAttribute = params.fieldName();
         aClass = params.domainClass();
     }
@@ -30,6 +29,6 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
         List<?> list = query.getResultList();
         Assert.state(list.size() <= 1, "Foi encontrado(a) mais de um(a) " + aClass + " com o atributo " + domainAttribute + " = " + value);
 
-        return list.isEmpty();
+        return list.size() == 1;
     }
 }

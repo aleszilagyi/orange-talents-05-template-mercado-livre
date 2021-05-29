@@ -1,4 +1,4 @@
-package com.orangetalents.mercadolivre.config.seguranca;
+package com.orangetalents.mercadolivre.seguranca;
 
 import com.orangetalents.mercadolivre.usuarios.Usuario;
 import org.springframework.security.core.GrantedAuthority;

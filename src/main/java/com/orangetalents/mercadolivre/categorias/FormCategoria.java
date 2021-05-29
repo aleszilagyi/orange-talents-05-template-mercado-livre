@@ -1,10 +1,9 @@
 package com.orangetalents.mercadolivre.categorias;
 
-import com.orangetalents.mercadolivre.config.anotacoes.NullOrValueExists;
-import com.orangetalents.mercadolivre.config.anotacoes.UniqueValue;
+import com.orangetalents.mercadolivre.compartilhado.anotacoes.NullOrValueExists;
+import com.orangetalents.mercadolivre.compartilhado.anotacoes.UniqueValue;
 
 import javax.validation.constraints.NotBlank;
-import java.util.Optional;
 
 public class FormCategoria {
     @NotBlank

@@ -1,6 +1,6 @@
-package com.orangetalents.mercadolivre.config.anotacoes;
+package com.orangetalents.mercadolivre.compartilhado.anotacoes;
 
-import com.orangetalents.mercadolivre.config.validators.UniqueValueValidator;
+import com.orangetalents.mercadolivre.compartilhado.validators.UniqueValueValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

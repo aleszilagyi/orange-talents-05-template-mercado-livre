@@ -1,8 +1,8 @@
 package com.orangetalents.mercadolivre.produtos;
 
 import com.orangetalents.mercadolivre.categorias.Categoria;
-import com.orangetalents.mercadolivre.config.anotacoes.ValueExists;
-import com.orangetalents.mercadolivre.config.anotacoes.VerificaListaValorDuplicado;
+import com.orangetalents.mercadolivre.compartilhado.anotacoes.ValueExists;
+import com.orangetalents.mercadolivre.compartilhado.anotacoes.VerificaListaValorDuplicado;
 import com.orangetalents.mercadolivre.produtos.caracteristicas.Caracteristica;
 import com.orangetalents.mercadolivre.produtos.caracteristicas.FormCaracteristicasRequest;
 import com.orangetalents.mercadolivre.usuarios.Usuario;

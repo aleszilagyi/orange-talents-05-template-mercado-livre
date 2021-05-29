@@ -1,4 +1,4 @@
-package com.orangetalents.mercadolivre.config.seguranca;
+package com.orangetalents.mercadolivre.seguranca;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;

@@ -1,6 +1,6 @@
 package com.orangetalents.mercadolivre.usuarios;
 
-import com.orangetalents.mercadolivre.config.anotacoes.UniqueValue;
+import com.orangetalents.mercadolivre.compartilhado.anotacoes.UniqueValue;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.constraints.Email;

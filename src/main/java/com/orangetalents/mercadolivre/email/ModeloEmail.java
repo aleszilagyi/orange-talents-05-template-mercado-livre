@@ -1,6 +1,6 @@
-package com.orangetalents.mercadolivre.produtos.email;
+package com.orangetalents.mercadolivre.email;
 
-import com.orangetalents.mercadolivre.config.anotacoes.VerificaDestinatarioEmail;
+import com.orangetalents.mercadolivre.compartilhado.anotacoes.VerificaDestinatarioEmail;
 
 @VerificaDestinatarioEmail
 public class ModeloEmail {

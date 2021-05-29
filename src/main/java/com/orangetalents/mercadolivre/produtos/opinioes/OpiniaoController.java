@@ -1,6 +1,6 @@
 package com.orangetalents.mercadolivre.produtos.opinioes;
 
-import com.orangetalents.mercadolivre.config.seguranca.UsuarioLogadoDetails;
+import com.orangetalents.mercadolivre.seguranca.UsuarioLogadoDetails;
 import com.orangetalents.mercadolivre.produtos.Produto;
 import com.orangetalents.mercadolivre.produtos.ProdutosRepository;
 import com.orangetalents.mercadolivre.usuarios.Usuario;

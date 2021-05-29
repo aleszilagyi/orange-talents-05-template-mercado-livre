@@ -1,4 +1,4 @@
-package com.orangetalents.mercadolivre.config.seguranca;
+package com.orangetalents.mercadolivre.seguranca;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
