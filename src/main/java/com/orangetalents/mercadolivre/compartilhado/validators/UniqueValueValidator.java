@@ -11,7 +11,6 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
 public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Object> {
-    //validação já existente
     private String domainAttribute;
     private Class<?> aClass;
     @PersistenceContext
