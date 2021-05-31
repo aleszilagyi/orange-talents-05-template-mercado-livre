@@ -1,4 +1,4 @@
-package com.orangetalents.mercadolivre.email;
+package com.orangetalents.mercadolivre.outrosSistemas.email;
 
 import com.orangetalents.mercadolivre.compartilhado.anotacoes.VerificaDestinatarioEmail;
 

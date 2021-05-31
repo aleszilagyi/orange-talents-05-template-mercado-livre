@@ -3,7 +3,7 @@ package com.orangetalents.mercadolivre.produtos.perguntas;
 import com.orangetalents.mercadolivre.seguranca.UsuarioLogadoDetails;
 import com.orangetalents.mercadolivre.produtos.Produto;
 import com.orangetalents.mercadolivre.produtos.ProdutosRepository;
-import com.orangetalents.mercadolivre.email.EnviaEmail;
+import com.orangetalents.mercadolivre.outrosSistemas.email.EnviaEmail;
 import com.orangetalents.mercadolivre.usuarios.Usuario;
 import com.orangetalents.mercadolivre.usuarios.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;

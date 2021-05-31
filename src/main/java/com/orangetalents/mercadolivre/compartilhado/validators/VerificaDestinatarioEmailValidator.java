@@ -1,7 +1,7 @@
 package com.orangetalents.mercadolivre.compartilhado.validators;
 
 import com.orangetalents.mercadolivre.compartilhado.anotacoes.VerificaDestinatarioEmail;
-import com.orangetalents.mercadolivre.email.ModeloEmail;
+import com.orangetalents.mercadolivre.outrosSistemas.email.ModeloEmail;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

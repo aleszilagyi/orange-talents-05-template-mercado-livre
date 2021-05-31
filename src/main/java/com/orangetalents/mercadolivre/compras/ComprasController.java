@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,13 +32,12 @@ public class ComprasController {
 
     @PostMapping("/{id}/compra")
     @Transactional
-    public ResponseEntity iniciaCompra(@RequestBody @Valid CompraFormRequest request, @PathVariable("id") Long idProduto, @AuthenticationPrincipal UsuarioLogadoDetails usuarioLogado) {
+    public ResponseEntity iniciaCompra(@RequestBody @Valid CompraFormRequest request, @PathVariable("id") Long idProduto, @AuthenticationPrincipal UsuarioLogadoDetails usuarioLogado) throws BindException {
         Usuario usuario = usuarioRepository.findByUsername(usuarioLogado.getUsername()).get();
         Optional<Produto> talvezProduto = produtosRepository.findById(idProduto);
         if (talvezProduto.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-
         if (talvezProduto.get().getUsuario().getId() == usuario.getId()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
@@ -45,15 +45,14 @@ public class ComprasController {
         Produto produto = talvezProduto.get();
         Compra compra = request.converter(usuario, produto);
 
-        boolean abate = produto.abateQuantidade(request.getQuantidade());
-        if (abate) {
-            comprasRepository.save(compra);
+        produto.abateQuantidade(request.getQuantidade());
 
-            URI linkRedir = compra.getFormaPagamento().getLink(compra.getId());
-            HttpHeaders header = new HttpHeaders();
-            header.setLocation(linkRedir);
+        comprasRepository.save(compra);
 
-            return new ResponseEntity<>(header, HttpStatus.FOUND);
-        } else return ResponseEntity.badRequest().build();
+        URI linkRedir = compra.getFormaPagamento().getLink(compra.getId());
+        HttpHeaders header = new HttpHeaders();
+        header.setLocation(linkRedir);
+
+        return new ResponseEntity<>(header, HttpStatus.FOUND);
     }
 }

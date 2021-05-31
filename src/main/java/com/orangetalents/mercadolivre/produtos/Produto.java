@@ -7,9 +7,9 @@ import com.orangetalents.mercadolivre.produtos.opinioes.Opiniao;
 import com.orangetalents.mercadolivre.produtos.perguntas.Pergunta;
 import com.orangetalents.mercadolivre.usuarios.Usuario;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.validation.BindException;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -130,11 +130,15 @@ public class Produto {
         return lista.stream().mapToDouble(Opiniao::getNota).average().orElse(0);
     }
 
-    public boolean abateQuantidade(@Positive Integer quantidadeComprada) {
+    public boolean abateQuantidade(@Positive Integer quantidadeComprada) throws BindException {
         if (estoque >= quantidadeComprada) {
             this.estoque -= quantidadeComprada;
             return true;
-        } else return false;
+        } else {
+            BindException exception = new BindException(estoque, "compraFormReques");
+            exception.reject(null, "ops, parece que não há estoque suficiente para completar a compra");
+            throw exception;
+        }
     }
 
     @Override
